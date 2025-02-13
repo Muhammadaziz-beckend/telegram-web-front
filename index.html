@@ -8,7 +8,7 @@
 </head>
 <body>
     <h2>Введите текст:</h2>
-    <input type="text" id="userInput" placeholder="Напишите что-то...">
+    <input type="text" id="userInput" placeholder="Напишите phone.">
     <button id="sendButton">Отправить</button>
 
     <h2>Или поделитесь номером:</h2>
@@ -21,7 +21,7 @@
             fetch("https://telegram-bot-apps.onrender.com/api/receive_phone/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ text: userInput }),
+                body: JSON.stringify({ phone: userInput }),
             })
             .then(response => response.json())
             .then(data => alert(data.message))
