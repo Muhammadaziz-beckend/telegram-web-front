@@ -8,7 +8,7 @@
   <body>
     <button id="getPhone">Получить номер</button>
     <div class="message"></div>
-    
+
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
       document
@@ -19,19 +19,22 @@
 
       let message = document.querySelector(".message");
 
-      Telegram.WebApp.onEvent("contact_received", function (contact) {
-        fetch("https://telegram-bot-apps.onrender.com/api/receive_phone/", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ phone: contact.phone_number }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            message.textContent = "Ответ от сервера: " + data.message;
-          })
-          .catch((error) => {
-            message.textContent = "Ошибка: " + error.message;
-          });
+      Telegram.WebApp.onEvent("contact_received", async function (contact) {
+        try {
+          let response = await fetch(
+            "https://telegram-bot-apps.onrender.com/api/receive_phone/",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ phone: contact.phone_number }),
+            }
+          );
+
+          let data = await response.json();
+          message.textContent = "Ответ от сервера: " + data.message;
+        } catch (error) {
+          message.textContent = "Ошибка: " + error.message;
+        }
       });
     </script>
   </body>
