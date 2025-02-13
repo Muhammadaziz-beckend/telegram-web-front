@@ -1,32 +1,29 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebApp для Telegram</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram Web App</title>
+  <script async src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    window.Telegram.WebApp.onEvent('themeChanged', function() {
+      // Обрабатываем изменение темы
+      console.log('Theme changed');
+    });
+
+    window.Telegram.WebApp.onEvent('webAppReady', function() {
+      // Когда Web App готов, можно использовать API
+      console.log('Web App is ready');
+    });
+
+    // Функция для отправки данных в Telegram
+    function sendDataToTelegram() {
+      window.Telegram.WebApp.sendData('Данные, отправленные в Telegram');
+    }
+  </script>
 </head>
 <body>
-    <input type="text" id="inputData" placeholder="Введите что-то">
-    <button onclick="sendData()">Отправить</button>
-
-    <script>
-        // Проверяем, есть ли Telegram WebApp
-        console.log("Telegram WebApp:", window.Telegram?.WebApp);
-
-        function sendData() {
-            const inputValue = document.getElementById("inputData").value;
-            
-            if (window.Telegram && window.Telegram.WebApp) {
-                console.log("Отправляем данные:", inputValue);
-                alert("Отправляем: " + inputValue);
-
-                window.Telegram.WebApp.sendData(inputValue); // Отправляем в бота
-                window.Telegram.WebApp.close();  // Закрываем WebApp
-            } else {
-                alert("Открой в Telegram! ❌");
-                console.log("WebApp не обнаружен");
-            }
-        }
-    </script>
+  <h1>Привет, это веб-приложение Telegram!</h1>
+  <button onclick="sendDataToTelegram()">Отправить данные в Telegram</button>
 </body>
 </html>
