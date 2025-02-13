@@ -10,13 +10,21 @@
     <button onclick="sendData()">Отправить</button>
 
     <script>
+        // Проверяем, есть ли Telegram WebApp
+        console.log("Telegram WebApp:", window.Telegram?.WebApp);
+
         function sendData() {
             const inputValue = document.getElementById("inputData").value;
+            
             if (window.Telegram && window.Telegram.WebApp) {
+                console.log("Отправляем данные:", inputValue);
+                alert("Отправляем: " + inputValue);
+
                 window.Telegram.WebApp.sendData(inputValue); // Отправляем в бота
                 window.Telegram.WebApp.close();  // Закрываем WebApp
             } else {
-                alert("Открой в Telegram!");
+                alert("Открой в Telegram! ❌");
+                console.log("WebApp не обнаружен");
             }
         }
     </script>
