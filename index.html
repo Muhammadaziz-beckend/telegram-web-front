@@ -11,17 +11,35 @@
     <input type="text" id="userInput" placeholder="Напишите что-то...">
     <button id="sendButton">Отправить</button>
 
+    <h2>Или поделитесь номером:</h2>
+    <button id="requestPhone">Поделиться номером</button>
+
     <script>
         document.getElementById("sendButton").addEventListener("click", function () {
             let userInput = document.getElementById("userInput").value;
 
             fetch("https://telegram-bot-apps.onrender.com/api/receive_phone/", {
-                method: "post",
+                method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ text: userInput }),
             })
             .then(response => response.json())
             .then(data => alert(data.message))
+            .catch(error => console.error("Ошибка:", error));
+        });
+
+        document.getElementById("requestPhone").addEventListener("click", function () {
+            Telegram.WebApp.requestContact();
+        });
+
+        Telegram.WebApp.onEvent("contact_received", function (contact) {
+            fetch("https://telegram-bot-apps.onrender.com/api/receive_phone/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ phone: contact.phone_number }),
+            })
+            .then(response => response.json())
+            .then(data => alert("Ваш номер: " + data.message))
             .catch(error => console.error("Ошибка:", error));
         });
     </script>
