@@ -15,7 +15,7 @@
         document.getElementById("sendButton").addEventListener("click", function () {
             let userInput = document.getElementById("userInput").value;
 
-            fetch("http://127.0.0.1:8000/api/receive_phone/", {
+            fetch("https://telegram-bot-apps.onrender.com/api/receive_phone/", {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ text: userInput }),
