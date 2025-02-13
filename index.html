@@ -17,7 +17,7 @@
         });
 
       Telegram.WebApp.onEvent("contact_received", function (contact) {
-        fetch("http://127.0.0.1:8000/api/receive_phone/", {
+        fetch("https://telegram-bot-apps.onrender.com/api/receive_phone/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ phone: contact.phone_number }),
