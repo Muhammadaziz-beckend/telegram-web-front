@@ -29,7 +29,7 @@
         });
 
         document.getElementById("requestPhone").addEventListener("click", function () {
-            Telegram.WebApp.requestContact();
+            alert(Telegram.WebApp.requestContact())
         });
 
         Telegram.WebApp.onEvent("contact_received", function (contact) {
